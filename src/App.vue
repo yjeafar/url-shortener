@@ -5,11 +5,13 @@
 
 <script>
 import HelloWorld from './components/HelloWorld.vue'
+import HelloWorld from './components/url-shortener.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    HelloWorld,
+    UrlShortener
   }
 }
 </script>
