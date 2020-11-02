@@ -1,6 +1,6 @@
 <template>
   <div class="url-shortner">
-    <h1>{{ msg }}</h1>
+    <h1>{{ url }}</h1>
     <p>
      This page allows for you to input a url and it will automatically be shortened.
     </p>
@@ -15,7 +15,7 @@
 export default {
   name: 'UrlShortener',
   props: {
-    msg: String
+    url: String
   }
 }
 </script>

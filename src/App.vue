@@ -1,11 +1,12 @@
 <template>
   <img alt="Vue logo" src="./assets/logo.png">
   <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <UrlShortener url="Testing prop for url" />
 </template>
 
 <script>
 import HelloWorld from './components/HelloWorld.vue'
-import HelloWorld from './components/url-shortener.vue'
+import UrlShortener from './components/url-shortener.vue'
 
 export default {
   name: 'App',
