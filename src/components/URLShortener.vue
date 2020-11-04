@@ -1,12 +1,14 @@
 <template>
-  <div class="url-shortner">
+<title> Url Shortener </title>
+  <div class="urlShortener">
     <h1>{{ url }}</h1>
     <p>
      This page allows for you to input a url and it will automatically be shortened.
     </p>
     <div>
       <input id="urlText" v-model="inputUrl" placeholder="URL to Shorten">
-      <p>Input URL is: {{ inputUrl }}</p>
+     <button type="button" id="submitButton" class="btn btn-primary">Submit</button>
+      <p style="padding-top: 25px">Input URL is: {{ inputUrl }}</p>
     </div>
   </div>
 </template>
@@ -17,6 +19,7 @@ export default {
   props: {
     url: String
   },
+  title: 'urlShortener',
   data() {
     return {
       inputUrl: ''
@@ -30,6 +33,11 @@ export default {
 div {
   margin: 40px 0 0;
 }
+
+.urlShortener {
+  color: dodgerblue;
+}
+
 #urlText {
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
@@ -38,6 +46,11 @@ div {
   outline: none;
   border-style: solid;
   padding: 3px;
+}
+
+#submitButton {
+  margin-left: 15px;
+  margin-bottom: 4px;
 }
 </style>
 
