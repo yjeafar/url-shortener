@@ -1,16 +1,13 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <UrlShortener url="www.google.com"/>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-import HelloWorld from './components/url-shortener.vue'
+import UrlShortener from './components/URLShortener.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld,
     UrlShortener
   }
 }
