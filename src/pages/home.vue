@@ -15,7 +15,7 @@
 
 <script>
 export default {
-  name: 'UrlShortener',
+  name: 'home',
   props: {
     url: String
   },
