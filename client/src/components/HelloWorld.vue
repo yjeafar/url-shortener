@@ -1,7 +1,8 @@
 <template>
-<title> Url Shortener </title>
   <div class="urlShortener">
+    <title> Url Shortener </title>
     <h1>{{ url }}</h1>
+    Url: {{ getUrl() }}
     <p>
      This page allows for you to input a url and it will automatically be shortened.
     </p>
@@ -14,6 +15,8 @@
 </template>
 
 <script>
+import getUrl from '../services/controller';
+
 export default {
   name: 'Home',
   props: {
@@ -24,6 +27,14 @@ export default {
       inputUrl: '',
     };
   },
+  getUrl() {
+    getUrl().then((response) => {
+      console.log(response);
+      this.users = response;
+      this.numberOfUsers = this.users.length;
+    });
+  },
+
 };
 </script>
 

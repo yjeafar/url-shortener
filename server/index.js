@@ -1,15 +1,15 @@
 const express = require('express');
+const dbConnect = require('./config/db');
 
 const app = express();
 
 // Connect to database
-
+dbConnect();
 
 app.use(express.json( { extended: false} )); // Allows api to accept json
 
-// Define Routes
-// app.use('/', require('./routes/index'));
-// app.use('/api/url', require('./routes/url'));
+app.use('/', require('./routes/index'));
+app.use('/api/url', require('./routes/url'));
 
 const PORT = 5000;
 
