@@ -2,7 +2,7 @@
   <div class="urlShortener">
     <title> Url Shortener </title>
     <h1>{{ url }}</h1>
-    Url: {{ getUrl() }}
+    Url: {{ shortenedUrl }}
     <p>
      This page allows for you to input a url and it will automatically be shortened.
     </p>
@@ -15,7 +15,11 @@
 </template>
 
 <script>
-import getUrl from '../services/controller';
+import axios from 'axios';
+
+const baseURL = 'http://localhost:5000';
+
+axios.defaults.baseURL = baseURL;
 
 export default {
   name: 'Home',
@@ -25,16 +29,13 @@ export default {
   data() {
     return {
       inputUrl: '',
+      shortenedUrl: '',
     };
   },
-  getUrl() {
-    getUrl().then((response) => {
-      console.log(response);
-      this.users = response;
-      this.numberOfUsers = this.users.length;
-    });
+  async mounted() {
+    const response = await axios.get('api/urls/');
+    this.shortenedUrl = response.data;
   },
-
 };
 </script>
 

@@ -10,9 +10,9 @@ dbConnect();
 app.use(express.json( { extended: false} )); // Allows api to accept json
 app.use(cors());
 
-const posts = require('./routes/api/posts');
+const urls = require('./routes/api/urls');
 
-app.use('/api/posts', posts);
+app.use('/api/urls', urls);
 
 const PORT = 5000;
 
