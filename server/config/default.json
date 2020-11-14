@@ -1,4 +1,4 @@
 {
-    "mongoURI": "enter info here",
+    "mongoURI": "Connection String",
     "baseUrl": "https://localhost:5000"
 }

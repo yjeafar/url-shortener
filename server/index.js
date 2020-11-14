@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const dbConnect = require('./config/db');
 
 const app = express();
@@ -7,9 +8,11 @@ const app = express();
 dbConnect();
 
 app.use(express.json( { extended: false} )); // Allows api to accept json
+app.use(cors());
 
-app.use('/', require('./routes/index'));
-app.use('/api/url', require('./routes/url'));
+const posts = require('./routes/api/posts');
+
+app.use('/api/posts', posts);
 
 const PORT = 5000;
 
