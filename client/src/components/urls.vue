@@ -9,6 +9,7 @@
     <div>
       <input id="urlText" v-model="inputUrl" placeholder="URL to Shorten">
      <button type="button" on id="submitButton" class="btn btn-primary" v-on:click="putShortenedUrl(inputUrl)">Submit</button>
+     <div v-if="!urlIsValid"> Url is incorrect. Remember to include the protocol and subdomain </div>
       <p style="padding-top: 25px">Input URL is: {{ inputUrl }}</p>
     </div>
     {{ allUrls[0] }}
@@ -16,7 +17,9 @@
 </template>
 
 <script>
-import UrlService from '../services/controller';
+import UrlService from '../services/UrlController';
+
+const validUrl = require('valid-url');
 
 const urlService = new UrlService();
 
@@ -30,6 +33,8 @@ export default {
       inputUrl: '',
       allUrls: [],
       shortenedUrl: '',
+      urlIsValid: Boolean, // Boolean value so when component mounts the error message isn't shown right away
+      submitButtonClicked: false,
     };
   },
   mounted() {
@@ -41,9 +46,15 @@ export default {
   },
   methods: {
     putShortenedUrl(longUrl) {
-      urlService.postShortenUrl(longUrl).then((response) => { // Async method so added then
-        this.shortenedUrl = response.data;
-      });
+      this.submitButtonClicked = true;
+      if (validUrl.isUri(longUrl)) {
+        this.urlIsValid = true;
+        urlService.postShortenUrl(longUrl).then((response) => { // Async method in service class so added 'then'
+          this.shortenedUrl = response.data;
+        });
+      } else {
+        this.urlIsValid = false;
+      }
     },
   },
 };
