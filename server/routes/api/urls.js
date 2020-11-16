@@ -8,4 +8,9 @@ router.get('/', (req, res) => {
     res.send('hello');
 })
 
+router.put('/shortenUrl', (req, res) => {
+    console.log(req.body); 
+    res.send(req.body);
+})
+
 module.exports = router;

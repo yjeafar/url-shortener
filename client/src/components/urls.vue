@@ -8,18 +8,17 @@
     </p>
     <div>
       <input id="urlText" v-model="inputUrl" placeholder="URL to Shorten">
-     <button type="button" id="submitButton" class="btn btn-primary">Submit</button>
+     <button type="button" on id="submitButton" class="btn btn-primary" v-on:click="putShortenedUrl(inputUrl)">Submit</button>
       <p style="padding-top: 25px">Input URL is: {{ inputUrl }}</p>
     </div>
+    {{ allUrls[0] }}
   </div>
 </template>
 
 <script>
-import axios from 'axios';
+import UrlService from '../services/controller';
 
-const baseURL = 'http://localhost:5000';
-
-axios.defaults.baseURL = baseURL;
+const urlService = new UrlService();
 
 export default {
   name: 'Home',
@@ -29,12 +28,23 @@ export default {
   data() {
     return {
       inputUrl: '',
+      allUrls: [],
       shortenedUrl: '',
     };
   },
-  async mounted() {
-    const response = await axios.get('api/urls/');
-    this.shortenedUrl = response.data;
+  mounted() {
+    urlService.getAllUrl().then((response) => {
+      console.log(response);
+      this.allUrls.push(response.data);
+      console.log(this.allUrls);
+    });
+  },
+  methods: {
+    putShortenedUrl(longUrl) {
+      urlService.postShortenUrl(longUrl).then((response) => { // Async method so added then
+        this.shortenedUrl = response.data;
+      });
+    },
   },
 };
 </script>
