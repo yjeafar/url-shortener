@@ -1,18 +1,20 @@
 <template>
-  <div class="urlShortener">
-    <title> Url Shortener </title>
-    <h1>{{ url }}</h1>
-    Url: {{ shortenedUrl }}
-    <p>
-     This page allows for you to input a url and it will automatically be shortened.
-    </p>
-    <div>
-      <input id="urlText" v-model="inputUrl" placeholder="URL to Shorten">
-     <button type="button" on id="submitButton" class="btn btn-primary" v-on:click="putShortenedUrl(inputUrl)">Submit</button>
-     <div v-if="!urlIsValid"> Url is incorrect. Remember to include the protocol and subdomain </div>
-      <p style="padding-top: 25px">Input URL is: {{ inputUrl }}</p>
+  <div>
+    <div class="urlShortener">
+      <title> Url Shortener </title>
+      <h1>{{ url }}</h1>
+      Url: {{ shortenedUrl }}
+      <p>
+      This page allows for you to input a url and it will automatically be shortened.
+      </p>
+      <div>
+        <input id="urlText" v-model="inputUrl" placeholder="URL to Shorten">
+      <button type="button" on id="submitButton" class="btn btn-primary" v-on:click="putShortenedUrl(inputUrl)">Submit</button>
+        <p style="padding-top: 25px">Input URL is: {{ inputUrl }}</p>
+      </div>
     </div>
-    {{ allUrls[0] }}
+    <!-- {{ allUrls[0] }} -->
+    <div id="errorMessage" v-if="!urlIsValid"> Url is incorrect. Remember to include the protocol and subdomain </div>
   </div>
 </template>
 
@@ -83,5 +85,15 @@ div {
 #submitButton {
   margin-left: 15px;
   margin-bottom: 4px;
+}
+
+#errorMessage {
+  color: rgb(212, 29, 29);
+  border: 1px solid black;
+  border-radius: 25px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 30%;
+  padding: 1%;
 }
 </style>
