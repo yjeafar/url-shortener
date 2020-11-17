@@ -10,7 +10,7 @@ dbConnect();
 app.use(express.json( { extended: false} )); // Allows api to accept json
 app.use(cors());
 
-const urls = require('./routes/api/urls');
+const urls = require('./routes/urls');
 
 app.use('/api/urls', urls);
 

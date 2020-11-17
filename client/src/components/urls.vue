@@ -80,11 +80,13 @@ div {
   outline: none;
   border-style: solid;
   padding: 3px;
+  width: 50%;
 }
 
 #submitButton {
   margin-left: 15px;
   margin-bottom: 4px;
+  width: 10%;
 }
 
 #errorMessage {
