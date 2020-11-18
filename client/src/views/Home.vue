@@ -1,17 +1,17 @@
 <template>
   <div class="home">
-    <HelloWorld url="www.google.com"/>
+    <Home titleHeader="URL Shortener"/>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '../components/urls.vue';
+// @ is an alias for /src
+import Home from '../components/urls.vue';
 
 export default {
-  name: 'Home',
+  name: 'HomeTemplate',
   components: {
-    HelloWorld,
+    Home,
   },
 };
 </script>

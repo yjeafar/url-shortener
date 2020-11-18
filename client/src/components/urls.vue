@@ -2,19 +2,22 @@
   <div>
     <div class="urlShortener">
       <title> Url Shortener </title>
-      <h1>{{ url }}</h1>
-      Url: {{ shortenedUrl }}
+      <h1>{{ titleHeader }}</h1>
       <p>
       This page allows for you to input a url and it will automatically be shortened.
       </p>
+      <div id="errorMessage" v-if="!urlIsValid"> Url is incorrect. Remember to include the protocol and subdomain </div>
       <div>
         <input id="urlText" v-model="inputUrl" placeholder="URL to Shorten">
       <button type="button" on id="submitButton" class="btn btn-primary" v-on:click="putShortenedUrl(inputUrl)">Submit</button>
-        <p style="padding-top: 25px">Input URL is: {{ inputUrl }}</p>
+      <h2 id="shortenedUrlsHeader">
+        Shortened Urls
+      </h2>
+      <div>
+         {{ shortenedUrl }}
+      </div>
       </div>
     </div>
-    <!-- {{ allUrls[0] }} -->
-    <div id="errorMessage" v-if="!urlIsValid"> Url is incorrect. Remember to include the protocol and subdomain </div>
   </div>
 </template>
 
@@ -28,7 +31,7 @@ const urlService = new UrlService();
 export default {
   name: 'Home',
   props: {
-    url: String,
+    titleHeader: String,
   },
   data() {
     return {
@@ -97,5 +100,9 @@ div {
   margin-right: auto;
   width: 30%;
   padding: 1%;
+}
+
+#shortenedUrlsHeader {
+  padding-top: 2%;
 }
 </style>

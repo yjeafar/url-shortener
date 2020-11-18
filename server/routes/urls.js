@@ -3,17 +3,18 @@ const { nanoid } = require('nanoid');
 const mongoose = require('mongoose');
 const validUrl = require('valid-url');
 const config = require ('config');
-const router = Router()
+const router = Router();
 const Url = require('../models/url');
 
-// Get Posts
+// get all urls in backend
 router.get('/', (req, res) => {
     res.send('hello');
 })
 
+// adds shortened url to database 
 router.put('/shortenUrl', async (req, res) => {
 
-    const longUrl = req.body.url;
+    const originalUrl = req.body.url;
 
     // base url from config/defualt.json base url section
     const baseUrl = config.get('baseUrl');
@@ -24,14 +25,14 @@ router.put('/shortenUrl', async (req, res) => {
         return res.status(400).json('Invalid base url');
     }
 
-    if (validUrl.isUri(longUrl)) {
+    if (validUrl.isUri(originalUrl)) {
         try {
             // Find url in mongoose db
-            let url = await Url.findOne({ longUrl });
+            let url = await Url.findOne({ originalUrl });
 
             if (url) {
                 // If in db, return url with all database fields as json, 200 OK message
-                res.json(url);
+                res.json(url.shortUrl);
             } else {
                 // Creates unique url code
                 const urlCode = nanoid();
@@ -41,7 +42,7 @@ router.put('/shortenUrl', async (req, res) => {
 
                 // Create new mongoose object
                 url = new Url({
-                    longUrl,
+                    originalUrl,
                     shortUrl,
                     urlCode,
                     date: new Date()
@@ -51,7 +52,7 @@ router.put('/shortenUrl', async (req, res) => {
                 await url.save();
 
                 // Returns the newly created object
-                res.json(url);
+                res.json(url.shortUrl);
             }
             
         } catch (err) {
