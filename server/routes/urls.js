@@ -19,6 +19,8 @@ router.put('/shortenUrl', async (req, res) => {
     // base url from config/defualt.json base url section
     const baseUrl = config.get('baseUrl');
 
+    let urlResponse = {originalUrl: '', shortUrl: ''};
+
     if (!validUrl.isUri(baseUrl)) {
 
         // If the url is invalid, returns a 400 bad request error
@@ -31,11 +33,21 @@ router.put('/shortenUrl', async (req, res) => {
             let url = await Url.findOne({ originalUrl });
 
             if (url) {
-                // If in db, return url with all database fields as json, 200 OK message
-                res.json(url.shortUrl);
+                // If in db, return url with database fields as json, 200 OK message
+                urlResponse.originalUrl = url.originalUrl;
+
+                urlResponse.shortUrl = url.shortUrl;
+
+                res.json(urlResponse);
+
             } else {
                 // Creates unique url code
-                const urlCode = nanoid();
+                 let urlCode;
+
+                 // Makes sure that unqiue id is not in the database
+                 do {
+                    urlCode = nanoid();
+                 } while (await Url.exists({ urlCode: urlCode }));
                 
                 // If not in db, create a new short url which is domain name + / + random nano id 
                 const shortUrl =  baseUrl + '/' + urlCode;
@@ -51,8 +63,12 @@ router.put('/shortenUrl', async (req, res) => {
                 // Mongoose .save() returns promise so need await. This saves the row to the database
                 await url.save();
 
+                urlResponse.originalUrl = url.originalUrl;
+
+                urlResponse.shortUrl = url.shortUrl;
+
                 // Returns the newly created object
-                res.json(url.shortUrl);
+                res.json(urlResponse);
             }
             
         } catch (err) {

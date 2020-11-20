@@ -13,8 +13,9 @@
       <h2 id="shortenedUrlsHeader">
         Shortened Urls
       </h2>
-      <div>
-         {{ shortenedUrl }}
+       <!-- eslint-disable-next-line vue/require-v-for-key -->
+      <div v-for="url in shortenedUrls">
+         Long Url: {{ url.originalUrl }} - Short Url: {{ url.shortUrl }}
       </div>
       </div>
     </div>
@@ -36,8 +37,7 @@ export default {
   data() {
     return {
       inputUrl: '',
-      allUrls: [],
-      shortenedUrl: '',
+      shortenedUrls: [],
       urlIsValid: Boolean, // Boolean value so when component mounts the error message isn't shown right away
       submitButtonClicked: false,
     };
@@ -45,8 +45,6 @@ export default {
   mounted() {
     urlService.getAllUrl().then((response) => {
       console.log(response);
-      this.allUrls.push(response.data);
-      console.log(this.allUrls);
     });
   },
   methods: {
@@ -55,7 +53,7 @@ export default {
       if (validUrl.isUri(longUrl)) {
         this.urlIsValid = true;
         urlService.postShortenUrl(longUrl).then((response) => { // Async method in service class so added 'then'
-          this.shortenedUrl = response.data;
+          this.shortenedUrls.push(response.data);
         });
       } else {
         this.urlIsValid = false;
@@ -82,14 +80,16 @@ div {
   border-color: silver;
   outline: none;
   border-style: solid;
-  padding: 3px;
-  width: 50%;
+  padding: 6px;
+  width: 40%;
 }
 
 #submitButton {
-  margin-left: 15px;
-  margin-bottom: 4px;
+  margin-left: 1%;
+  margin-bottom: 5px;
   width: 10%;
+  min-width: 70px;
+  height: 40px;
 }
 
 #errorMessage {
