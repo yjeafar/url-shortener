@@ -14,9 +14,14 @@
         Shortened Urls
       </h2>
        <!-- eslint-disable-next-line vue/require-v-for-key -->
-      <div v-for="url in shortenedUrls">
-         Long Url: {{ url.originalUrl }} - Short Url: {{ url.shortUrl }}
-      </div>
+       <ul class="list-group" v-for="url in shortenedUrls">
+         <div class="container">
+            <li class="list-group-item row">
+              <div class="col longUrl"> Long Url: <a href=url.originalUrl> {{ url.originalUrl }} </a> </div>
+              <div class="col shortUrl"> Short Url: <a href=url.shortUrl> {{ url.shortUrl }} </a></div>
+            </li>
+         </div>
+       </ul>
       </div>
     </div>
   </div>
@@ -104,5 +109,15 @@ div {
 
 #shortenedUrlsHeader {
   padding-top: 2%;
+}
+
+.list-group-item {
+  min-width: 100%;
+}
+
+.longUrl {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 1000px;
 }
 </style>
