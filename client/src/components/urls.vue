@@ -16,9 +16,15 @@
        <!-- eslint-disable-next-line vue/require-v-for-key -->
        <ul class="list-group" v-for="url in shortenedUrls">
          <div class="container">
-            <li class="list-group-item row">
-              <div class="col longUrl"> Long Url: <a href=url.originalUrl> {{ url.originalUrl }} </a> </div>
-              <div class="col shortUrl"> Short Url: <a href=url.shortUrl> {{ url.shortUrl }} </a></div>
+            <li class="list-group-item">
+              <div class="row">
+                <div class="col">
+                  <span class="longUrl"> Long Url: <a v-bind:href="url.originalUrl"> {{ url.originalUrl }} </a> </span>
+                </div>
+                <div class="col">
+                  <span class="longUrl"> Short Url: <a v-bind:href="url.shortUrl"> {{ url.shortUrl }} </a></span>
+                </div>
+              </div>
             </li>
          </div>
        </ul>
@@ -57,8 +63,12 @@ export default {
       this.submitButtonClicked = true;
       if (validUrl.isUri(longUrl)) {
         this.urlIsValid = true;
-        urlService.postShortenUrl(longUrl).then((response) => { // Async method in service class so added 'then'
-          this.shortenedUrls.push(response.data);
+        urlService.postShortenUrl(longUrl).then((response) => {
+        // Checks if url code is in the current array, if it's not then push object
+          if (!this.shortenedUrls.filter((e) => e.urlCode === response.data.urlCode)
+              || this.shortenedUrls.length < 1) {
+            this.shortenedUrls.push(response.data);
+          }
         });
       } else {
         this.urlIsValid = false;
@@ -111,13 +121,23 @@ div {
   padding-top: 2%;
 }
 
-.list-group-item {
-  min-width: 100%;
-}
-
 .longUrl {
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 1000px;
+
 }
+
+.shortUrl {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.container {
+  max-width: 100%;
+}
+
+.list-group-item {
+  max-height: 10%;
+}
+
 </style>

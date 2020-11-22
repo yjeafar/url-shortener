@@ -19,7 +19,7 @@ router.put('/shortenUrl', async (req, res) => {
     // base url from config/defualt.json base url section
     const baseUrl = config.get('baseUrl');
 
-    let urlResponse = {originalUrl: '', shortUrl: ''};
+    let urlResponse = { urlCode: '',  originalUrl: '', shortUrl: ''};
 
     if (!validUrl.isUri(baseUrl)) {
 
@@ -37,6 +37,8 @@ router.put('/shortenUrl', async (req, res) => {
                 urlResponse.originalUrl = url.originalUrl;
 
                 urlResponse.shortUrl = url.shortUrl;
+
+                urlResponse.urlCode = url.urlCode;
 
                 res.json(urlResponse);
 
@@ -66,6 +68,8 @@ router.put('/shortenUrl', async (req, res) => {
                 urlResponse.originalUrl = url.originalUrl;
 
                 urlResponse.shortUrl = url.shortUrl;
+
+                urlResponse.urlCode = url.urlCode;
 
                 // Returns the newly created object
                 res.json(urlResponse);
