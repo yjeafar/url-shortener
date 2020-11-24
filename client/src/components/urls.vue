@@ -13,21 +13,21 @@
       <h2 id="shortenedUrlsHeader">
         Shortened Urls
       </h2>
-       <!-- eslint-disable-next-line vue/require-v-for-key -->
-       <ul class="list-group" v-for="url in shortenedUrls">
-         <div class="container">
+        <!-- eslint-disable-next-line vue/require-v-for-key -->
+      <ul class="list-group" v-for="url in shortenedUrls">
+        <div class="container">
             <li class="list-group-item">
               <div class="row">
                 <div class="col">
-                  <span class="longUrl"> Long Url: <a v-bind:href="url.originalUrl"> {{ url.originalUrl }} </a> </span>
+                  <span class="longUrl"> Original Url: <a v-bind:href="url.originalUrl"> {{ url.originalUrl }} </a> </span>
                 </div>
                 <div class="col">
                   <span class="longUrl"> Short Url: <a v-bind:href="url.shortUrl"> {{ url.shortUrl }} </a></span>
                 </div>
               </div>
             </li>
-         </div>
-       </ul>
+        </div>
+      </ul>
       </div>
     </div>
   </div>
@@ -64,15 +64,23 @@ export default {
       if (validUrl.isUri(longUrl)) {
         this.urlIsValid = true;
         urlService.postShortenUrl(longUrl).then((response) => {
-        // Checks if url code is in the current array, if it's not then push object
-          if (!this.shortenedUrls.filter((e) => e.urlCode === response.data.urlCode)
-              || this.shortenedUrls.length < 1) {
+          // Checks if url code is in the current array, if it's not then push object
+          if (!this.compareValues(response.data.urlCode) || this.shortenedUrls.length < 1) {
             this.shortenedUrls.push(response.data);
           }
         });
       } else {
         this.urlIsValid = false;
       }
+    },
+    compareValues(urlCode) {
+      for (let i = 0; i < this.shortenedUrls.length; i += 1) {
+        const urlObject = { ...this.shortenedUrls[i] }; // Assigns copy of proxy object and does check
+        if (urlObject.urlCode === urlCode) {
+          return true;
+        }
+      }
+      return false;
     },
   },
 };
@@ -121,23 +129,36 @@ div {
   padding-top: 2%;
 }
 
-.longUrl {
+.longUrl, .shortUrl {
+  min-width: 150px;
+  max-width: 600px;
   overflow: hidden;
   text-overflow: ellipsis;
-
-}
-
-.shortUrl {
-  overflow: hidden;
-  text-overflow: ellipsis;
+  float: left;
+  white-space: nowrap;
 }
 
 .container {
   max-width: 100%;
 }
 
+.row {
+  margin-top: 0%;
+  padding-top: 0%;
+}
+
+.col {
+  margin-bottom: 0%;
+  margin-top: 0%;
+}
+
 .list-group-item {
-  max-height: 10%;
+  margin-bottom: 3%;
+}
+
+#nav a {
+    font-weight: bold;
+    color: #3385ff;
 }
 
 </style>

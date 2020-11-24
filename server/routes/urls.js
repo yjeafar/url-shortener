@@ -48,7 +48,7 @@ router.put('/shortenUrl', async (req, res) => {
 
                  // Makes sure that unqiue id is not in the database
                  do {
-                    urlCode = nanoid();
+                    urlCode = nanoid(8);
                  } while (await Url.exists({ urlCode: urlCode }));
                 
                 // If not in db, create a new short url which is domain name + / + random nano id 
