@@ -9,25 +9,28 @@
       <div id="errorMessage" v-if="!urlIsValid"> Url is incorrect. Remember to include the protocol and subdomain </div>
       <div>
         <input id="urlText" v-model="inputUrl" placeholder="URL to Shorten">
-      <button type="button" on id="submitButton" class="btn btn-primary" v-on:click="putShortenedUrl(inputUrl)">Submit</button>
-      <h2 id="shortenedUrlsHeader">
-        Shortened Urls
-      </h2>
+        <button type="button" on id="submitButton" class="btn btn-primary" v-on:click="putShortenedUrl(inputUrl)">Submit</button>
+        <h2 id="shortenedUrlsHeader">
+          Shortened Urls
+        </h2>
         <!-- eslint-disable-next-line vue/require-v-for-key -->
-      <ul class="list-group" v-for="url in shortenedUrls">
-        <div class="container">
-            <li class="list-group-item">
-              <div class="row">
-                <div class="col">
-                  <span class="longUrl"> Original Url: <a v-bind:href="url.originalUrl"> {{ url.originalUrl }} </a> </span>
+        <ul class="list-group" v-for="url in shortenedUrls">
+          <div class="container">
+              <li class="list-group-item">
+                <div class="row">
+                  <div class="col">
+                    <span class="longUrl"> Old Url: <a v-bind:href="url.originalUrl"> {{ url.originalUrl }} </a> </span>
+                  </div>
+                  <div class="col">
+                    <span class="shortUrl"> New Url: <a v-bind:href="url.shortUrl"> {{ url.shortUrl }} </a>
+                     <!-- eslint-disable-next-line max-len -->
+                    <button type="button" on id="copyButton" class="btn btn-primary" v-on:click="putShortenedUrl(inputUrl)">Copy</button>
+                    </span>
+                  </div>
                 </div>
-                <div class="col">
-                  <span class="longUrl"> Short Url: <a v-bind:href="url.shortUrl"> {{ url.shortUrl }} </a></span>
-                </div>
-              </div>
-            </li>
-        </div>
-      </ul>
+              </li>
+          </div>
+        </ul>
       </div>
     </div>
   </div>
@@ -129,17 +132,26 @@ div {
   padding-top: 2%;
 }
 
-.longUrl, .shortUrl {
+.longUrl {
   min-width: 150px;
-  max-width: 600px;
+  max-width: 425px;
   overflow: hidden;
   text-overflow: ellipsis;
   float: left;
   white-space: nowrap;
+  padding-top: 1%;
+}
+
+.shortUrl {
+  float:right;
+  min-width: 150px;
+  white-space: nowrap;
 }
 
 .container {
-  max-width: 100%;
+  width: 60%;
+  margin-left:auto;
+  margin-right:auto;
 }
 
 .row {
@@ -154,6 +166,7 @@ div {
 
 .list-group-item {
   margin-bottom: 3%;
+  border-radius: 20px;
 }
 
 #nav a {
