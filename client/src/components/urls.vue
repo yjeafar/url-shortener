@@ -23,8 +23,7 @@
                   </div>
                   <div class="col">
                     <span class="shortUrl"> New Url: <a v-bind:href="url.shortUrl"> {{ url.shortUrl }} </a>
-                     <!-- eslint-disable-next-line max-len -->
-                    <button type="button" on id="copyButton" class="btn btn-primary" v-on:click="putShortenedUrl(inputUrl)">Copy</button>
+                    <button type="button" on id="copyButton" class="btn btn-secondary" v-on:click="putShortenedUrl(inputUrl)">Copy</button>
                     </span>
                   </div>
                 </div>
@@ -172,6 +171,18 @@ div {
 #nav a {
     font-weight: bold;
     color: #3385ff;
+}
+
+#copyButton {
+  margin-left: 2%;
+  background-color: #303030;
+  color: #3385ff;
+}
+
+#copyButton:active {
+  background-color: orange;
+  box-shadow: 0 5px gray;
+  transform: translateY(2px);
 }
 
 </style>
