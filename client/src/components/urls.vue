@@ -23,7 +23,8 @@
                   </div>
                   <div class="col">
                     <span class="shortUrl"> New Url: <a v-bind:href="url.shortUrl"> {{ url.shortUrl }} </a>
-                    <button type="button" on id="copyButton" class="btn btn-secondary" v-on:click="putShortenedUrl(inputUrl)">Copy</button>
+                    <button type="button" id="copyButton" class="btn btn-secondary" title="Copy to Clipboard"
+                      v-on:click="copyToClipboard(url.urlCode)">Copy</button>
                     </span>
                   </div>
                 </div>
@@ -34,7 +35,6 @@
     </div>
   </div>
 </template>
-
 <script>
 import UrlService from '../services/UrlController';
 
@@ -83,6 +83,26 @@ export default {
         }
       }
       return false;
+    },
+    copyToClipboard(urlCode) {
+      let url;
+      for (let i = 0; i < this.shortenedUrls.length; i += 1) {
+        const urlObject = { ...this.shortenedUrls[i] };
+        url = urlObject.urlCode === urlCode ? urlObject : '';
+      }
+      const temp = document.createElement('input');
+      document.body.appendChild(temp);
+      temp.setAttribute('id', 'temp_id');
+      document.getElementById('temp_id').value = url.shortUrl;
+      temp.select();
+      temp.setSelectionRange(0, 99999);
+      document.execCommand('copy');
+      document.body.removeChild(temp);
+      const elem = document.getElementById('copyButton');
+      elem.innerHTML = 'Copied!';
+      setTimeout(() => {
+        elem.innerHTML = 'Copy';
+      }, 4000);
     },
   },
 };
@@ -177,12 +197,6 @@ div {
   margin-left: 2%;
   background-color: #303030;
   color: #3385ff;
-}
-
-#copyButton:active {
-  background-color: orange;
-  box-shadow: 0 5px gray;
-  transform: translateY(2px);
 }
 
 </style>

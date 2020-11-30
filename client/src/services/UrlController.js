@@ -8,7 +8,6 @@ export default class UrlService {
 
   async getAllUrl() {
     this.response = await axios.get('api/urls/');
-    console.log(this.response);
     return this.response;
   }
 
