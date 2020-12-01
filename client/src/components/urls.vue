@@ -18,14 +18,13 @@
           <div class="container">
             <li class="list-group-item">
               <div class="row">
-                <div class="col">
+                <div class="col-7">
                   <span class="longUrl"> Old Url: <a v-bind:href="url.originalUrl"> {{ url.originalUrl }} </a> </span>
                 </div>
-                <div class="col">
-                  <span class="shortUrl"> New Url: <a v-bind:href="url.shortUrl"> {{ url.shortUrl }} </a>
+                <div class="col-5">
+                  <span id="shortUrl"> New Url: <a v-bind:href="url.shortUrl"> {{ url.shortUrl }} </a></span>
                   <button type="button" id="copyButton" class="btn btn-secondary" title="Copy to Clipboard"
                     v-on:click="copyToClipboard(url.urlCode, $event)">Copy</button>
-                  </span>
                 </div>
               </div>
             </li>
@@ -176,16 +175,18 @@ div {
   padding-top: 1%;
 }
 
-.shortUrl {
-  float:right;
+#shortUrl {
+  float:left;
   min-width: 150px;
   white-space: nowrap;
+  padding-top: 1%;
 }
 
 .container {
   width: 60%;
   margin-left:auto;
   margin-right:auto;
+  margin-top: 1px;
 }
 
 .row {
@@ -193,13 +194,12 @@ div {
   padding-top: 0%;
 }
 
-.col {
+.col-5, .col-7 {
   margin-bottom: 0%;
   margin-top: 0%;
 }
 
 .list-group-item {
-  margin-bottom: 3%;
   border-radius: 20px;
 }
 
@@ -209,9 +209,9 @@ div {
 }
 
 #copyButton {
-  margin-left: 2%;
   background-color: #303030;
   color: #3385ff;
+  float: right;
 }
 
 </style>
