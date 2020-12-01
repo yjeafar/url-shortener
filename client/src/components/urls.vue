@@ -9,26 +9,26 @@
       <div id="errorMessage" v-if="!urlIsValid"> Url is incorrect. Remember to include the protocol and subdomain </div>
       <div>
         <input id="urlText" v-model="inputUrl" placeholder="URL to Shorten">
-        <button type="button" on id="submitButton" class="btn btn-primary" v-on:click="putShortenedUrl(inputUrl)">Submit</button>
+        <button type="button" on id="submitButton" class="btn btn-primary" v-on:click="postShortenedUrl(inputUrl)">Submit</button>
         <h2 id="shortenedUrlsHeader">
           Shortened Urls
         </h2>
         <!-- eslint-disable-next-line vue/require-v-for-key -->
         <ul class="list-group" v-for="url in shortenedUrls">
           <div class="container">
-              <li class="list-group-item">
-                <div class="row">
-                  <div class="col">
-                    <span class="longUrl"> Old Url: <a v-bind:href="url.originalUrl"> {{ url.originalUrl }} </a> </span>
-                  </div>
-                  <div class="col">
-                    <span class="shortUrl"> New Url: <a v-bind:href="url.shortUrl"> {{ url.shortUrl }} </a>
-                    <button type="button" id="copyButton" class="btn btn-secondary" title="Copy to Clipboard"
-                      v-on:click="copyToClipboard(url.urlCode)">Copy</button>
-                    </span>
-                  </div>
+            <li class="list-group-item">
+              <div class="row">
+                <div class="col">
+                  <span class="longUrl"> Old Url: <a v-bind:href="url.originalUrl"> {{ url.originalUrl }} </a> </span>
                 </div>
-              </li>
+                <div class="col">
+                  <span class="shortUrl"> New Url: <a v-bind:href="url.shortUrl"> {{ url.shortUrl }} </a>
+                  <button type="button" id="copyButton" class="btn btn-secondary" title="Copy to Clipboard"
+                    v-on:click="copyToClipboard(url.urlCode, $event)">Copy</button>
+                  </span>
+                </div>
+              </div>
+            </li>
           </div>
         </ul>
       </div>
@@ -61,7 +61,7 @@ export default {
     });
   },
   methods: {
-    putShortenedUrl(longUrl) {
+    postShortenedUrl(longUrl) {
       this.submitButtonClicked = true;
       if (validUrl.isUri(longUrl)) {
         this.urlIsValid = true;
@@ -84,21 +84,25 @@ export default {
       }
       return false;
     },
-    copyToClipboard(urlCode) {
+    copyToClipboard(urlCode, event) {
+      if (event.target.innerHTML === 'Copied!') { // Checks avoid spamming copy button and doesn't keep executing below code
+        return;
+      }
       let url;
+      // Below code gets the object in each index and copies it to the urlObject
       for (let i = 0; i < this.shortenedUrls.length; i += 1) {
         const urlObject = { ...this.shortenedUrls[i] };
         url = urlObject.urlCode === urlCode ? urlObject : '';
       }
-      const temp = document.createElement('input');
+      const temp = document.createElement('input'); // Creates new element for select
       document.body.appendChild(temp);
       temp.setAttribute('id', 'temp_id');
-      document.getElementById('temp_id').value = url.shortUrl;
+      document.getElementById('temp_id').value = url.shortUrl; // Added shortened url to the value for textbox
       temp.select();
-      temp.setSelectionRange(0, 99999);
-      document.execCommand('copy');
-      document.body.removeChild(temp);
-      const elem = document.getElementById('copyButton');
+      temp.setSelectionRange(0, 99999); // selects everything in the textbox
+      document.execCommand('copy'); // copies to clipboard
+      document.body.removeChild(temp); // removes from page
+      const elem = event.target;
       elem.innerHTML = 'Copied!';
       setTimeout(() => {
         elem.innerHTML = 'Copy';

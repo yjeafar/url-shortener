@@ -12,7 +12,7 @@ router.get('/', (req, res) => {
 })
 
 // adds shortened url to database 
-router.put('/shortenUrl', async (req, res) => {
+router.post('/shortenUrl', async (req, res) => {
 
     const originalUrl = req.body.url;
 

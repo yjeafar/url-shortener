@@ -12,7 +12,7 @@ export default class UrlService {
   }
 
   async postShortenUrl(longUrl) {
-    this.response = await axios.put('api/urls/shortenUrl', { url: longUrl });
+    this.response = await axios.post('api/urls/shortenUrl', { url: longUrl });
     return this.response;
   }
 }
