@@ -59,6 +59,12 @@ export default {
     urlService.getAllUrl().then((response) => {
       console.log(response);
     });
+    const stored = localStorage.urls;
+    if (stored) {
+      this.shortenedUrls = JSON.parse(stored);
+    } else {
+      this.shortenedUrls = [];
+    }
   },
   methods: {
     postShortenedUrl(longUrl) {
@@ -70,10 +76,15 @@ export default {
           if (!this.compareValues(response.data.urlCode) || this.shortenedUrls.length < 1) {
             this.shortenedUrls.push(response.data);
           }
+        }).then(() => {
+          this.addToCache();
         });
       } else {
         this.urlIsValid = false;
       }
+    },
+    addToCache() {
+      localStorage.urls = JSON.stringify(this.shortenedUrls);
     },
     compareValues(urlCode) {
       for (let i = 0; i < this.shortenedUrls.length; i += 1) {
@@ -106,7 +117,7 @@ export default {
       elem.innerHTML = 'Copied!';
       setTimeout(() => {
         elem.innerHTML = 'Copy';
-      }, 4000);
+      }, 2500);
     },
   },
 };
