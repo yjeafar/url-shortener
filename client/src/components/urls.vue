@@ -42,7 +42,7 @@ const validUrl = require('valid-url');
 const urlService = new UrlService();
 
 export default {
-  name: 'Home',
+  name: 'UrlShortener',
   props: {
     titleHeader: String,
   },
