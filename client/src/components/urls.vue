@@ -8,8 +8,10 @@
       </p>
       <div id="errorMessage" v-if="!urlIsValid"> Url is incorrect. Remember to include the protocol and subdomain </div>
       <div>
-        <input id="urlText" v-model="inputUrl" placeholder="URL to Shorten">
-        <button type="button" on id="submitButton" class="btn btn-primary" v-on:click="postShortenedUrl(inputUrl)">Submit</button>
+        <div id="alignInput">
+          <input id="urlText" v-model="inputUrl" placeholder="URL to Shorten">
+          <button type="button" on id="submitButton" class="btn btn-primary" v-on:click="postShortenedUrl(inputUrl)">Submit</button>
+        </div>
         <h2 id="shortenedUrlsHeader">
           Shortened Urls
         </h2>
@@ -140,15 +142,21 @@ div {
   outline: none;
   border-style: solid;
   padding: 6px;
-  width: 40%;
+  width: 50%;
 }
 
 #submitButton {
   margin-left: 1%;
-  margin-bottom: 5px;
-  width: 10%;
+  margin-bottom: 3px;
+  width: 8%;
   min-width: 70px;
   height: 40px;
+}
+
+#alignInput {
+  margin-left: auto;
+  margin-right: auto;
+  width: 90%;
 }
 
 #errorMessage {

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="Home">
+    <div >
         This is the home page. Welcome to my projects.
     </div>
   </div>
