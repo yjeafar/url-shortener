@@ -12,9 +12,6 @@
           <input id="urlText" v-model="inputUrl" placeholder="URL to Shorten">
           <button type="button" on id="submitButton" class="btn btn-primary" v-on:click="postShortenedUrl(inputUrl)">Submit</button>
         </div>
-        <h2 id="shortenedUrlsHeader">
-          Shortened Urls
-        </h2>
         <!-- eslint-disable-next-line vue/require-v-for-key -->
         <ul class="list-group" v-for="url in shortenedUrls">
           <div class="container">
@@ -169,10 +166,6 @@ div {
   padding: 1%;
 }
 
-#shortenedUrlsHeader {
-  padding-top: 2%;
-}
-
 .longUrl {
   min-width: 150px;
   max-width: 425px;
@@ -195,6 +188,7 @@ div {
   margin-left:auto;
   margin-right:auto;
   margin-top: 1px;
+  padding-top: 2%;
 }
 
 .row {
