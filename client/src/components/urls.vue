@@ -98,7 +98,7 @@ export default {
         return;
       }
       let url;
-      // Below code gets the object in each index and copies it to the urlObject
+      // Below code gets the object in each index and copies it to urlObject
       for (let i = 0; i < this.shortenedUrls.length; i += 1) {
         const urlObject = { ...this.shortenedUrls[i] };
         url = urlObject.urlCode === urlCode ? urlObject : '';
