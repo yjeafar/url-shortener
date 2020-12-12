@@ -1,8 +1,8 @@
 <template>
   <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/url-shortener">Url Shortener</router-link> |
-    <router-link to="/music-player">Music Player</router-link>
+    <router-link class="navText" to="/">Home</router-link> |
+    <router-link class="navText" to="/url-shortener">Url Shortener</router-link> |
+    <router-link class="navText" to="/music-player">Music Player</router-link>
     <router-view/>
   </div>
 </template>
@@ -17,7 +17,8 @@
 }
 
 #nav {
-  padding: 30px;
+  padding-top: 25px;
+  height: 100vh;
 }
 
 #nav a {
@@ -27,5 +28,9 @@
 
 #nav a.router-link-exact-active {
   color: #42b983;
+}
+
+.navText {
+  font-size: 18px;
 }
 </style>
