@@ -37,9 +37,9 @@ export default {
   data() {
     return {
       currentSong: {},
-      index: 0,
       isPlaying: false,
       player: new Audio(), // HTML5 audio element
+      index: 0,
       songs: [
         {
           title: 'Holder',
@@ -77,7 +77,7 @@ export default {
       }
 
       this.player.play();
-      this.player.volume = 0.2;
+      this.player.volume = 0.3;
       this.isPlaying = true;
     },
 
@@ -86,19 +86,17 @@ export default {
       this.isPlaying = false;
     },
     playPrev() {
-      const currentPosition = this.songs.findIndex((c) => c.src === this.currentSong.src);
-
-      if (this.songs[currentPosition - 1]) {
-        this.play(this.songs[currentPosition - 1]);
+      this.index -= 1;
+      if (this.songs[this.index - 1]) {
+        this.play(this.songs[this.index - 1]);
       } else {
         this.play(this.songs[this.songs.length - 1]);
       }
     },
     playNext() {
-      const currentPosition = this.songs.findIndex((c) => c.src === this.currentSong.src);
-
-      if (this.songs[currentPosition + 1]) {
-        this.play(this.songs[currentPosition + 1]);
+      this.index += 1;
+      if (this.songs[this.index + 1]) {
+        this.play(this.songs[this.index + 1]);
       } else {
         this.play(this.songs[0]);
       }
