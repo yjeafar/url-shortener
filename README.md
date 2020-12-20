@@ -28,4 +28,10 @@ Once that's finished, navigate to server and run npm run dev to start the server
 
 Next, navigate to client and run 'npm run serve'. There should be a message in the terminal that it is up and running and which port it's running on (should be port 8000). Now you can make calls from the application to the database via the application.
 
+The three music files I used are not mine and are free, copyright-safe tracks from AudioLibrary. They can be found here:
 
+Grow - KV: https://www.youtube.com/watch?v=dYczQCpaM74
+
+Good Feeling - Roa: https://www.youtube.com/watch?v=6lvyX-1IeYM
+
+WanderList - extenz: https://www.youtube.com/watch?v=Tc41iHPxHGQ
