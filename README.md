@@ -23,8 +23,11 @@ npm run lint
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
 
+Description
 
 This application works like Bitly. The user navigates to the url, inputs a url and the server gives the user back a short url. Say for instance there is a super long link on Amazon that spans multiple lines. The user could just copy that link and paste it in this application, and it will give them a link with the baseurl, as well as a unique 8 character id. When the user navigates to that link with the 8 character id, they are taken to their original link. See below for getting started.
+
+Setting up
 
 Before starting, you need to make sure you have the following installed on the machine you would like to run this project from: Npm, NodeJs, and VueJS.  
 
@@ -39,6 +42,8 @@ Once that's finished, navigate to the top level of the server folder via the ter
 Next, navigate to the client folder via your terminal and run 'npm run serve'. There should be a message in the terminal that it is up and running and which port it's running on (should be port 8000). If you changed the port in the server, you will need to change the port number in the client/services/UrlController as well. Now you can make calls from the application to the database via the application.
 
 Once both the client and server are running, you could test it out by inputting a url, clicking submit, and then navigating to the url that the application gives. 
+
+Copyright 
 
 The three music files I used in the Music Player app are not mine and are free, copyright-safe tracks from AudioLibrary. They can be found here:
 
