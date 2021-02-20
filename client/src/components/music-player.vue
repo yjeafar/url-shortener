@@ -89,17 +89,19 @@ export default {
     },
     playPrev() {
       this.index -= 1;
-      if (this.songs[this.index - 1]) {
-        this.play(this.songs[this.index - 1]);
+      if (this.songs[this.index]) {
+        this.play(this.songs[this.index]);
       } else {
         this.play(this.songs[this.songs.length - 1]);
+        this.index = this.songs.length - 1;
       }
     },
     playNext() {
       this.index += 1;
-      if (this.songs[this.index + 1]) {
-        this.play(this.songs[this.index + 1]);
+      if (this.songs[this.index]) {
+        this.play(this.songs[this.index]);
       } else {
+        this.index = 0;
         this.play(this.songs[0]);
       }
     },
